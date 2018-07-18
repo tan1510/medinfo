@@ -1,1 +1,4 @@
 # medinfo
+
+## connecter
+MySQL

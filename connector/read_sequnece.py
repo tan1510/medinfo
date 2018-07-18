@@ -1,18 +1,8 @@
 import pandas as pd 
-import mysql.connector
+import dbconnetor 
 import config
 
-if __name__ == '__main__':
-
-    mysql = mysql(config.config)
-
-    sql =  'select * from uniprot_filtered' 
-
-    df = pd.read_sql(sql,mysql.conn)
-
-print(df['Sequence'])
-
-class data_gatter():
+def class data_gatter:
 
     # mysql connection initialize
     def __init__(self) :
@@ -26,4 +16,4 @@ class data_gatter():
         '''
         sql =  'select * from uniprot_filtered' 
 
-        return pd.read_sql(sql,mysql.conn)
+        return pd.read_sql(sql,mysql.conn)['Sequence']
