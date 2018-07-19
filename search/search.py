@@ -41,8 +41,7 @@ list_mass = df.values.tolist()
 def get_mass(text):
     result = 0
     i=0
-    #print(list_mass)
-    print (text)
+    # print (text)
     while (i<=len(text)):
         try :
        # print(self.massdf[self.text[i:i+2]])
@@ -53,9 +52,12 @@ def get_mass(text):
      #   print(e)
                 #print(self.massdf[self.text[i]])
             if(i!=len(text)):
-                result = result+massdf[text[i]][0]
+                try :
+                    result = result+massdf[text[i]][0]
+                except KeyError as e:
+                    print(e)
             i=i+1
-    print(result)
+    #print(result)
     return result
 
 def pick_min_mass_index(list):

@@ -14,3 +14,4 @@ class data_getter:
         sql =  'select * from uniprot_filtered' 
 
         return pd.read_sql(sql,self.mysql.conn)[['Entry','Sequence']]
+        
