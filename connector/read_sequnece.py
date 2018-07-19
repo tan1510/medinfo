@@ -39,8 +39,7 @@ class data_getter:
         connection.commit()
     
     def peptide_text_cut_process_by_tryp(self,text):
-        split_by_KandR_list = [text.replace(' ','').replace('\n','').replace('KR',';'). 
-        replace('K','K:').replace('R','R:').replace(';','KR').split(':')]
+        split_by_KandR_list = text.replace(' ','').replace('\n','').replace('KR',';').replace('K','K:').replace('R','R:').replace(';','KR').split(':')
         return split_by_KandR_list
 
     def get_mass(self,text):
@@ -71,15 +70,20 @@ class data_getter:
         df = pd.read_table('uniprot_fragment.tsv')
         dg = data_getter()
         for seri in df.iterrows():
+            
             sq_f_list = dg.peptide_text_cut_process_by_tryp(seri[1]['Sequence'])
+          
             s_pos = 0
             g_pos=  0
             no = 1
-            for sq_f in sq_f_list:
-                sql = ('INSERT INTO uniprot_slice_sequence (Isoform,no,seq,s_pos,g_pos,mass) Values (%d,%d,%s,%d,%d,%d)')
-                self.connection.cursor().execute(sql,[seri[1]['Entry name'],no,sq_f,s_pos,g_pos,dg.get_mass(sq_f)])
+            for sq_f in sq_f_list :
+                sql = ('INSERT INTO uniprot_slice_sequence (Isoform,no,seq,s_pos,g_post,mass) values(%s,%s,%s,%s,%s,%s)')
+                mass = str(dg.get_mass(sq_f))
+               # print(mass)
+                self.connection.cursor().execute(sql,[seri[1]['Entry name'],no,sq_f,s_pos,g_pos,mass])
                 s_pos = g_pos
                 no = no+1
+            print(seri)
         self.connection.commit()
         print('insert')
                 
